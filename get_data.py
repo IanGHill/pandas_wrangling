@@ -16,6 +16,6 @@ def download_file(url, filename):
 
 
 # Example usage
-url = "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DA0101EN-SkillsNetwork/labs/Data%20files/auto.csv"
-filename = "usedcars.csv"
+url = "https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DA0101EN-Coursera/laptop_pricing_dataset_mod2.csv"
+filename = "laptops.csv"
 download_file(url, filename)
