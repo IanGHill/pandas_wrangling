@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats
 
-df = pd.read_csv("clean_df.csv", header=0)
+df = pd.read_csv("clean_used_car_df.csv", header=0)
 # print(df.head())
 # print(df.dtypes)
 # print(df.corr(numeric_only=True))
