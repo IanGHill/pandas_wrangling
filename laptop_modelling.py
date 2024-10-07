@@ -2,10 +2,11 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression, Ridge
 from sklearn.preprocessing import StandardScaler, PolynomialFeatures
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.model_selection import cross_val_score, train_test_split
 import warnings
 
 warnings.filterwarnings("ignore", category=UserWarning)
@@ -128,3 +129,23 @@ ypipe = pipe.predict(Z)
 
 print("MSE for multi-variable polynomial pipeline is: ", mean_squared_error(Y, ypipe))
 print("R^2 for multi-variable polynomial pipeline is: ", r2_score(Y, ypipe))
+
+# Model Refinement
+# Split the data into training and testing subsets, assuming that 20% of the data will be reserved for testing.
+x_train, x_test, y_train, y_test = train_test_split(Z, Y, test_size=0.2, random_state=1)
+# Initialize a Ridge regressor that used hyperparameter alpha = 0.1.
+# Fit the model using training data data subset. Print the R2 score for the testing data.
+RidgeModel = Ridge(alpha=0.1)
+RidgeModel.fit(x_train, y_train)
+yhat = RidgeModel.predict(x_test)
+print(r2_score(y_test, yhat))
+
+# Apply polynomial transformation to the training parameters with degree=2.
+# Use this transformed feature set to fit the same regression model, as above, using the training subset.
+# Print the R2 score for the testing subset.
+pr = PolynomialFeatures(degree=2)
+x_train_pr = pr.fit_transform(x_train)
+x_test_pr = pr.fit_transform(x_test)
+RidgeModel.fit(x_train_pr, y_train)
+y_hat = RidgeModel.predict(x_test_pr)
+print(r2_score(y_test, y_hat))
